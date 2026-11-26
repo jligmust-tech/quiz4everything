@@ -23,6 +23,8 @@ import sys
 import unicodedata
 from difflib import SequenceMatcher
 
+import _console  # local encoding shim
+
 MIN_SPAN_CHARS = 40
 MAX_OPTION_LEN_RATIO = 1.40
 NEAR_DUP_THRESHOLD = 0.90
@@ -396,6 +398,7 @@ def adversarial_prompt(item: dict) -> str:
 # ---------------------------------------------------------------------- main
 
 def main(argv=None) -> int:
+    _console.setup()
     ap = argparse.ArgumentParser(description="Deterministic QA gate for a quiz bank.")
     ap.add_argument("--doc", required=True, help="document.json from ingest.py")
     ap.add_argument("--bank", required=True, help="bank.json from generation")

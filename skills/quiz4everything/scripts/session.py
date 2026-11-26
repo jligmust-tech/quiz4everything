@@ -32,6 +32,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import schedule as sched  # noqa: E402
+import _console  # noqa: E402  (local encoding shim; see _console.py)
 
 EVENTS = "events.jsonl"
 BANKS = "banks"
@@ -314,6 +315,14 @@ def run_session(data: str, items: list[dict], mode: str, as_json: bool,
         print("Nothing to practise." if not as_json else json.dumps({"items": []}))
         return 1
 
+    if not as_json and not sys.stdin.isatty():
+        # Agent sandboxes and piped stdin have no terminal to answer at. Saying
+        # "stopped" here looks like the learner quit, so say what to do instead.
+        print("No interactive terminal detected.")
+        print("Run with --json to get the queue, then record answers with:")
+        print("  session.py answer --data <dir> --item <id> --response <answer>")
+        return 3
+
     order = command_reshuffle(items, seed)
     asked: list[dict] = []
     results: list[dict] = []
@@ -593,7 +602,7 @@ def cmd_stats(args) -> int:
     if not banks:
         print("No banks yet. Run ingest + generate + add first.")
         return 1
-    print(f"{payload['document'] or '(no document)'}  •  {len(items)} items in "
+    print(f"{payload['document'] or '(no document)'}{_console.DOT}{len(items)} items in "
           f"{len(banks)} bank(s)")
     print(f"reviews: {n}   items seen: {len(state)}   due now: {len(due)}")
     if n:
@@ -734,6 +743,7 @@ def cmd_answer(args) -> int:
 # --------------------------------------------------------------------- main
 
 def main(argv=None) -> int:
+    _console.setup()
     ap = argparse.ArgumentParser(description="Practice, review, and honest stats.")
     sub = ap.add_subparsers(dest="cmd", required=True)
 

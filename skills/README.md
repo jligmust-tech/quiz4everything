@@ -8,18 +8,45 @@ server, no database, no account. State is files in a directory you choose.
 
 ## Install
 
-Copy or symlink `quiz4everything/` into your skills directory:
+The skill format is portable; the *location* is not. Every agent scans its own
+folder, so use the installer, which knows them all:
 
 ```bash
-# opencode
-ln -s "$PWD/skills/quiz4everything" ~/.config/opencode/skills/quiz4everything
-
-# claude code
-ln -s "$PWD/skills/quiz4everything" ~/.claude/skills/quiz4everything
+python3 skills/install.py --list        # agents found, and where they'd go
+python3 skills/install.py               # detected agents, user scope
+python3 skills/install.py --agent all   # every known agent
 ```
 
-Restart the agent so it picks up the new skill. Verify with a prompt like
-"what can quiz4everything do".
+Or install by hand into any one of these:
+
+| agent | user folder | project folder |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| OpenAI Codex | `~/.agents/skills/` | `.agents/skills/` |
+| Cursor | `~/.cursor/skills/` | `.agents/skills/` |
+| Gemini CLI | `~/.gemini/skills/` | `.agents/skills/` |
+| GitHub Copilot / VS Code | `~/.copilot/skills/` | `.github/skills/` |
+| OpenCode | `~/.config/opencode/skills/` | `.agents/skills/` |
+
+Four of those read each other's folders, so `.agents/skills/quiz4everything/`
+alone covers Codex, Cursor, Gemini CLI and OpenCode; adding `.claude/skills/`
+covers Claude Code, and `.github/skills/` covers Copilot.
+
+```bash
+# the one-folder version, if you only care about the .agents/ readers
+cp -R skills/quiz4everything .agents/skills/quiz4everything
+```
+
+On Windows, `ln -s` needs Developer Mode, and `.claude/` and `.agents/` are
+ordinary folders in your home directory — the installer copies by default for
+that reason. Add `--link` if you want edits to propagate and your system allows
+symlinks.
+
+For the web and desktop apps (claude.ai, ChatGPT), zip the skill folder and upload
+it; there is no folder to copy into.
+
+Restart the agent so it picks up the new skill. Verify with a prompt like "what
+can quiz4everything do".
 
 ## Requirements
 
@@ -36,6 +63,14 @@ which pdftotext
 If neither is present, `ingest.py --engine pypdf` fails with exit 2 rather than
 producing a silently empty document.
 
+On Windows use `python` where the examples say `python3`, and
+`where pdftotext` instead of `which`. If `pdftotext` is not on `PATH`, either add
+the poppler `bin` folder to it or rely on `pypdf`, which needs no external binary.
+
+The scripts adapt to the console: on a GBK or cp1252 terminal they switch the
+stream to UTF-8 when possible and otherwise substitute unencodable characters, so
+Chinese section titles print instead of raising `UnicodeEncodeError` mid-session.
+
 ## Layout
 
 ```
@@ -47,6 +82,7 @@ quiz4everything/
     item-quality.md            distractor craft, worked bad->good examples
     scheduling.md              what intervals mean, how ratings are derived
   scripts/
+    _console.py                terminal encoding shim (GBK/cp1252 safe)
     ingest.py                  document -> text + section outline
     verify.py                  deterministic QA gate + adversarial prompt builder
     schedule.py                FSRS-5, pure functions
@@ -120,6 +156,17 @@ For the other scripts the check is behavioural, on a small fixture: ingest a
 two-page PDF and its `.md` twin, confirm both produce the same four sections;
 verify a bank containing one item with a fabricated span and confirm exactly that
 item is rejected.
+
+Portability is checked the same way, by making the failure happen:
+
+```bash
+PYTHONIOENCODING=gbk  python3 scripts/session.py stats --data qd   # console
+PYTHONIOENCODING=ascii python3 scripts/ingest.py 中文.md --stats     # console
+python3 scripts/session.py practice --data qd < /dev/null           # no TTY -> exit 3
+```
+
+Each of those crashed or misfired before `_console.py` existed; they are the
+regression checks for it.
 
 ## Status
 

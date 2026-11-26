@@ -28,6 +28,8 @@ import subprocess
 import sys
 import unicodedata
 
+import _console  # local encoding shim; scripts/ is on sys.path when run directly
+
 CJK = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3040-\u30ff\uac00-\ud7af]")
 
 # ---------------------------------------------------------------- extraction
@@ -63,9 +65,12 @@ def _extract_pdf_pypdf(path: str) -> list[str]:
 
 
 def _extract_pdf_pdftotext(path: str) -> list[str]:
+    # pdftotext always emits UTF-8 (we pass -enc UTF-8), but text=True would
+    # decode with the *locale* codec. On a Windows GBK console that mangles or
+    # crashes on Chinese documents, so the encoding is pinned explicitly.
     out = subprocess.run(
         ["pdftotext", "-layout", "-enc", "UTF-8", path, "-"],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding="utf-8", errors="replace",
     )
     if out.returncode != 0:
         raise SystemExit(f"error: pdftotext failed: {out.stderr.strip()}")
@@ -347,6 +352,7 @@ def print_stats(doc: dict) -> None:
 
 
 def main(argv=None) -> int:
+    _console.setup()
     ap = argparse.ArgumentParser(description="Build a document + section outline.")
     ap.add_argument("document")
     ap.add_argument("--out", help="write JSON here (default: stdout)")

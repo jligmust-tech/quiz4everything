@@ -26,6 +26,8 @@ import argparse
 import math
 import sys
 
+import _console  # local encoding shim
+
 # FSRS-5 default parameters (17). Order matters: see FSRS docs.
 W = (0.4872, 1.4003, 3.7145, 13.8206, 5.1618, 1.2298, 0.8975, 0.031,
      1.6474, 0.1367, 1.0461, 2.1072, 0.0793, 0.3246, 1.5870, 0.2272, 2.8755)
@@ -237,6 +239,7 @@ def self_test() -> int:
 
 
 def main(argv=None) -> int:
+    _console.setup()
     ap = argparse.ArgumentParser(description="FSRS-style scheduler (pure functions).")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--interval", nargs=2, type=float, metavar=("S", "DAYS"),

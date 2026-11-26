@@ -1,9 +1,10 @@
 ---
 name: quiz4everything
-description: Turn a PDF, markdown, or text document into a verified quiz bank, then run retrieval practice and spaced review on it. Use when the user wants to make questions from study material, practise retrieval, drill what they got wrong, or review on a schedule. Triggers - "make a quiz from this PDF", "出题", "做题", "复习", "测一下我", "帮我出练习题", "review what I missed", "spaced repetition".
+description: Turn a PDF, markdown, or text document into a verified quiz bank, then run retrieval practice and spaced review on it. Use when the user wants to make questions from study material, practise retrieval, drill what they got wrong, or review on a schedule. Triggers - "make a quiz from this PDF", "make practice questions", "quiz me on this", "review what I missed", "spaced repetition", and Chinese triggers 出题, 做题, 复习, 测一下我, 帮我出练习题, 从我上传的文档出题.
 license: Apache-2.0
-compatibility: opencode
+compatibility: Requires Python 3.10+. PDF input additionally needs pypdf (pip install pypdf) or poppler's pdftotext on PATH; markdown and text input need neither. No network access beyond the model you are already running in; no API keys, no server, no database.
 metadata:
+  version: "1.0"
   audience: learners
   workflow: local-first
 ---
@@ -15,6 +16,26 @@ Reading material in, retrieval practice out.
 The point is not to produce questions. The point is to make the learner
 retrieve, get feedback that explains, and come back days later. Everything below
 serves that, and the non-negotiables are the ones the evidence actually supports.
+
+## Running the scripts
+
+All four scripts are plain Python with no third-party dependency except optional
+PDF extraction. Invoke them the same way from any agent:
+
+```bash
+python3 scripts/ingest.py ...      # macOS / Linux
+python  scripts/ingest.py ...      # Windows (python3 may not exist)
+```
+
+Two rules that apply to every command in this file:
+
+- **Quote paths that contain spaces.** On Windows, `C:\Users\me\My Documents\a.pdf`
+  must be `"C:\Users\me\My Documents\a.pdf"`.
+- **Trust the exit code, not the wording.** 0 success, 1 rejection or nothing due
+  or unreadable input, 2 bad arguments, 3 needs a human decision.
+
+Scripts resolve their own directory, so they work from any working directory.
+`session.py` and `_console.py` are imported by path; keep `scripts/` intact.
 
 ## Pipeline
 
@@ -47,8 +68,9 @@ python3 scripts/ingest.py <document.pdf|.md|.txt> --out document.json
 python3 scripts/ingest.py <doc> --stats        # section table only
 ```
 
-Exit 2 means unreadable, 3 means nothing extractable. Do not improvise text
-extraction if this fails — report it.
+Exit 1 means the input could not be read (missing file, unsupported extension,
+encrypted or scanned PDF with no text). The message on stderr says which. Do not
+improvise text extraction if this fails — report it.
 
 Read the printed warnings. They are load-bearing:
 
@@ -125,7 +147,8 @@ then re-run with `--self yes|partly|no`. A correct production answer must never
 be silently marked wrong.
 
 Only when the learner is at a real terminal, use `practice` without `--json`
-for the interactive TTY loop, which also re-asks missed items.
+for the interactive TTY loop, which also re-asks missed items. Without a TTY it
+exits 3 and tells you to use `--json`; it never pretends the learner quit.
 
 ### 5. Review
 
