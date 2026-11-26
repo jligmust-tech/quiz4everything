@@ -1,7 +1,8 @@
 # quiz4everything — theory & design notes
 
-**Status: v0.1 — theory only.** No implementation yet. This folder is the evidence
-base that the question-generation skills will be built on.
+**Status: v0.1 — implemented as an agent skill.** This folder is the evidence and
+reasoning; the working code is in [`../../skills/quiz4everything/`](../../skills/quiz4everything/).
+Every `DR-*` rule cited in that code traces back to a section here.
 
 ## The product loop we are designing for
 
@@ -22,8 +23,10 @@ PDF / reading material
 ```
 
 Two things are **not yet decided** and are deliberately left open
-(see [06-open-questions.md](06-open-questions.md)): the exact testing
-protocol the user has in mind, and the delivery surface (web app / CLI / agent skill).
+(see [06-open-questions.md](06-open-questions.md)): the exact testing protocol
+the user has in mind, and whether a web surface is wanted in addition to the
+skill. The delivery surface is settled as **agent skill, files on disk**; Q1
+remains genuinely open and is the one that would change the data model.
 
 ## Documents
 
