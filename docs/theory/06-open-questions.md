@@ -29,8 +29,13 @@ single-learner local tool.
 
 **Q3. Where does the output live?** Options: (a) agent skill producing JSON
 files, (b) local webapp, (c) both — skill generates, webapp practises. The
-bundled prior art is (b)-with-a-skill-wrapper on Windows. Current assumption:
-skill-first, file-based artifacts, webapp optional later.
+bundled prior art is (b)-with-a-skill-wrapper on Windows.
+
+Settled: (a) is built, and it is file-based. No web page exists. Rather than
+guessing whether one is wanted, the skill asks the learner once per project and
+records the answer; if they ask for a page today, the honest reply is that it is
+not built yet. Revisit if the ask turns out to be common — a page would mostly
+lower the cost of returning for spaced review, which is where A4 is decided.
 
 ---
 

@@ -200,8 +200,10 @@ maps onto skills/commands like:
 - `quiz practice <section-id>` → session
 - `quiz review` → due items
 
-These are placeholders. Exact packaging (one skill with subcommands vs several
-skills vs a local webapp) is an open question — see 06. The prior art we have
+These were placeholders during design; the shipped skill implements them as
+`ingest.py`, `verify.py`, `session.py` and `schedule.py` instead, one script per
+deterministic stage. Whether a local web page is added on top is now asked of the
+learner rather than assumed — see 06 Q3. No page exists yet. The prior art we have
 (`learning-quiz-bank.zip`, reviewed in 07) is a single command that does stages
 2–3 only, badly, with no QA gate, no scheduling, and a Windows absolute path
 hard-coded.

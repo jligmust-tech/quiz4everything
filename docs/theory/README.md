@@ -22,11 +22,12 @@ PDF / reading material
    Mastery state per topic ──► next session / review queue
 ```
 
-Two things are **not yet decided** and are deliberately left open
-(see [06-open-questions.md](06-open-questions.md)): the exact testing protocol
-the user has in mind, and whether a web surface is wanted in addition to the
-skill. The delivery surface is settled as **agent skill, files on disk**; Q1
-remains genuinely open and is the one that would change the data model.
+Two things are deliberately left open. The delivery surface is settled as
+**agent skill, files on disk** — no web page exists in this repository, and the
+skill now asks the learner once whether they want one rather than assuming either
+answer (see `skills/quiz4everything/SKILL.md`). Q1, the exact testing protocol the
+user has in mind, remains genuinely open and is the one that would change the data
+model.
 
 ## Documents
 

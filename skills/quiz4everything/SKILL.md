@@ -59,6 +59,32 @@ quiz-data/
 `events.jsonl` is append-only. All scheduler state is recomputed from it, so the
 learner's history cannot be corrupted by a stale cache file.
 
+## Ask the learner first
+
+Before the first bank of a new project, ask one question:
+
+> Do you want a local web page as the front end as well, or is practising inside
+> this chat enough?
+
+Ask it once per `quiz-data` directory — the moment `banks/` is absent or empty.
+Do not re-ask if the learner already answered in this conversation, and never
+block practice on the answer. The default if they shrug is chat-only.
+
+Why it is asked rather than assumed: the design depends on the learner coming
+back days later, and every step of friction between sessions reduces that. A page
+they can open without starting an agent is genuinely lower cost. But it is also
+real work, and it is not this skill's job to assume it.
+
+| answer | what to do |
+|---|---|
+| chat only | the normal path in this file. Nothing to install. |
+| local page | **It does not exist yet.** Say so plainly. Do not improvise a UI, do not start a server, do not scaffold a webapp — the scripts are file-based by design. Note the request and continue with chat practice. |
+| both | practise in chat now, and record that the learner wants a page, so it is not lost. |
+
+Being straight about this matters more than being helpful: a learner told "yes,
+there's a web UI" will go looking for one that is not there, and conclude the
+tool is broken rather than unfinished.
+
 ## Workflow
 
 ### 1. Ingest
@@ -188,6 +214,9 @@ These are not style preferences.
    increases activity and degrades learning (DR-30).
 10. **Local only.** No network calls except the model you are already using. No
     API keys in files. No learner data leaves the machine.
+11. **Never claim a web front end exists.** It does not. If the learner asks for
+    one, say so and continue with chat practice; do not scaffold a UI or start a
+    server to seem responsive.
 
 ## Do not hand these to a model
 
