@@ -29,3 +29,6 @@ yarn-error.log*
 dist/
 build/
 *.log
+
+# Archives (keep prior-art as text, not binaries)
+*.zip

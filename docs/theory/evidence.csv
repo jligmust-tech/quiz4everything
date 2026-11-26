@@ -1,0 +1,40 @@
+id,citation,corpus,comparison,effect_size,ci_low,ci_high,moderator,note
+rowland2014_overall,Rowland 2014 Psychol Bull,61 experiments; 159 effects,testing vs restudy (lab),0.50,0.42,0.58,overall,primary testing-effect estimate
+rowland2014_feedback,Rowland 2014 Psychol Bull,,"feedback present",0.73,,,feedback,vs 0.39 without
+rowland2014_nofeedback,Rowland 2014 Psychol Bull,,"no feedback",0.39,,,feedback,bifurcation: ~no effect below 50% retrievability
+rowland2014_delay_ge1d,Rowland 2014 Psychol Bull,,"retention >= 1 day",0.69,,,retention interval,vs 0.41 for <1 day
+rowland2014_delay_lt1d,Rowland 2014 Psychol Bull,,"retention < 1 day",0.41,,,retention interval,
+rowland2014_cued_recall,Rowland 2014 Psychol Bull,,"initial test = cued recall",0.61,,,initial test type,
+rowland2014_recognition,Rowland 2014 Psychol Bull,,"initial test = recognition",0.29,,,initial test type,
+adesope2017_overall,Adesope et al. 2017 RER,272 effects; N=15427,practice test vs all non-testing controls,0.61,0.58,0.65,overall,fixed-effects
+adesope2017_random,Adesope et al. 2017 RER,272 effects; N=15427,practice test vs all non-testing controls,0.70,0.63,0.78,overall,random-effects
+adesope2017_restudy,Adesope et al. 2017 RER,195 effects; N=10491,vs restudying,0.51,0.47,0.55,control condition,
+adesope2017_filler,Adesope et al. 2017 RER,58 effects; N=3452,vs filler or no activity,0.93,0.86,1.01,control condition,
+adesope2017_mcq,Adesope et al. 2017 RER,,practice format = MCQ,0.70,,,practice format,contradicts Yang's classroom ordering
+adesope2017_shortanswer,Adesope et al. 2017 RER,,practice format = short answer,0.48,,,practice format,
+adesope2017_gap_lt1d,Adesope et al. 2017 RER,,"practice-final gap < 1 day",0.56,,,spacing,
+adesope2017_gap_1to6d,Adesope et al. 2017 RER,,"practice-final gap 1-6 days",0.82,,,spacing,
+yang2021_overall,Yang et al. 2021 Psychol Bull,222 studies; 573 effects; N=48478,classroom quizzing vs control,0.499,,,overall,
+yang2021_restudy,Yang et al. 2021 Psychol Bull,,vs restudying,0.330,,,control condition,lowest of the classroom comparisons
+yang2021_noactivity,Yang et al. 2021 Psychol Bull,,vs no/filler activity,0.610,,,control condition,
+yang2021_elaborative,Yang et al. 2021 Psychol Bull,,vs other elaborative strategies,0.095,,,control condition,no reliable advantage - key honest caveat
+yang2021_cloze,Yang et al. 2021 Psychol Bull,,practice format = fill-in-the-blank,0.773,,,practice format,
+yang2021_shortanswer,Yang et al. 2021 Psychol Bull,,practice format = short answer,0.638,,,practice format,
+yang2021_mcq,Yang et al. 2021 Psychol Bull,,practice format = MCQ,0.567,,,practice format,
+yang2021_freerecall,Yang et al. 2021 Psychol Bull,,practice format = free recall,0.238,,,practice format,
+yang2021_format_matched,Yang et al. 2021 Psychol Bull,,practice format = final format,0.531,,,format match,
+yang2021_format_mismatched,Yang et al. 2021 Psychol Bull,,practice format != final format,0.399,,,format match,
+yang2021_feedback,Yang et al. 2021 Psychol Bull,,corrective feedback provided,0.537,,,feedback,
+yang2021_nofeedback,Yang et al. 2021 Psychol Bull,,no feedback,0.374,,,feedback,
+yang2021_postclass,Yang et al. 2021 Psychol Bull,,post-class quizzing,0.536,,,timing,
+yang2021_preclass,Yang et al. 2021 Psychol Bull,,pre-class quizzing,0.186,,,timing,
+yang2021_semester,Yang et al. 2021 Psychol Bull,,semester-long intervention,0.5,,,duration,>0.5
+yang2021_singleclass,Yang et al. 2021 Psychol Bull,,single-class intervention,0.385,,,duration,
+yang2021_untested,Yang et al. 2021 Psychol Bull,,untested but related material,0.321,,,transfer,additional-exposure evidence
+yang2021_anxiety,Yang et al. 2023 (companion),25 studies,quizzing vs control on test anxiety,-0.52,,,affect,negative = anxiety reduced
+pan2018_overall,Pan & Rickard 2018 Psychol Bull,192 effects; 122 experiments; N=10382,transfer to new questions,0.40,0.31,0.50,overall,d not g
+pan2018_no_congruency,Pan & Rickard 2018 Psychol Bull,,no response congruency,0.28,,,response congruency,
+pan2018_congruency,Pan & Rickard 2018 Psychol Bull,,response congruency present,0.58,,,response congruency,+0.30 over baseline
+pan2018_elaborated,Pan & Rickard 2018 Psychol Bull,,elaborated retrieval practice,+0.23,,,elaboration,increment
+pan2018_initial_accuracy,Pan & Rickard 2018 Psychol Bull,,per +1pp initial accuracy,+0.0058,,,initial accuracy,increment in d
+cepeda2006,"Cepeda et al. 2006 Psychol Bull",839 assessments; 317 experiments,"optimal ISI scales with retention interval",NA,NA,NA,spacing,direction only; ratio unsettled
