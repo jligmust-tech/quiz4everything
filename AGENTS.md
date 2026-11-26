@@ -44,6 +44,13 @@ OpenCode, on macOS, Linux and Windows. That means: `python3` or `python`, path
 quoting, no POSIX-only assumptions, and `SKILL.md` frontmatter that parses under
 strict YAML.
 
+## Communication
+
+Write to the user in English, including code comments, commit messages, and
+chat replies. The skill itself must still follow the *document* language for
+generated items (see `DR` rules on language), but that is a product behaviour,
+not a communication style.
+
 ## Docs
 
 - `docs/theory/` — the evidence base and reasoning. Do not restate it in code
