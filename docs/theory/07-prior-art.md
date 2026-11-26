@@ -73,13 +73,16 @@ the "code assembles the field, not the model" pattern.
 
 ## Repo hygiene note
 
-`learning-quiz-bank.zip` is untracked in the repo root. It should not be
-committed as a binary. Options:
+`learning-quiz-bank.zip` is untracked in the repo root and `.gitignore`d. It
+should not be committed as a binary.
 
-1. Unzip into `prior-art/learning-quiz-bank/` and commit the three text files,
-   with a `README.md` noting provenance and that it is superseded.
-2. Delete it and rely on this review.
+Resolved: the zip's useful content has been absorbed into
+`skills/quiz4everything/` as a working implementation — the schema became
+`references/item-schema.md` (extended), the prompt templates became
+`references/item-generation.md` (with the gaps in this document closed by
+`scripts/verify.py`). The zip itself is now redundant and can be deleted without
+loss.
 
-Recommended: option 1 — the schema and prompt templates are a useful reference
-even though the design is superseded. Needs the user's decision because the file
-is theirs.
+Kept as documentation of what was reviewed, and of which specific gaps were
+judged worth closing, since that reasoning is not recoverable from the final
+files.

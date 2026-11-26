@@ -8,14 +8,32 @@ retrieve before revealing, get feedback that explains, come back later.
 
 ## Status
 
-**Theory and design only.** No implementation yet. The plan, the evidence base,
-and the open questions live in [`docs/theory/`](docs/theory/).
+**Theory and design, plus a working agent skill.** No web app, no server.
+The plan and evidence live in [`docs/theory/`](docs/theory/); the usable thing
+lives in [`skills/quiz4everything/`](skills/quiz4everything/).
+
+```bash
+S=skills/quiz4everything/scripts
+python3 $S/ingest.py paper.pdf --out document.json     # -> text + sections
+python3 $S/ingest.py paper.pdf --stats                 # just the section table
+python3 $S/verify.py --doc document.json --bank b.json # mandatory QA gate
+python3 $S/session.py init --data quiz-data --doc document.json
+python3 $S/session.py add  --data quiz-data --bank b.json
+python3 $S/session.py practice --data quiz-data --section s3
+```
+
+See [`skills/README.md`](skills/README.md) for install, requirements, and the
+deterministic/LLM split.
 
 ## The intended loop
 
 ```
 PDF ──► section outline ──► user picks one ──► items ──► practice ──► spaced review
 ```
+
+Only the middle step involves a model. Extraction, verification, scheduling and
+grading are deterministic Python, because a model cannot certify that its own
+quote exists in the source.
 
 ## Read this first
 
